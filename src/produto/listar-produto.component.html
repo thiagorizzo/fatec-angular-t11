@@ -1,0 +1,42 @@
+<!-- https://bit.ly/2YGlDvB -->
+<h1>{{titulo}}</h1>
+
+<div *ngIf="mostrarProduto()">
+    <table id="produtos">
+        <thead>
+            <tr>
+                <th>código</th>
+                <th>nome</th>
+                <th>valor</th>
+                <th>imagem</th>
+                <th>ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let produto of produtos | slice:getIndiceInicial(paginaAtual):getIndiceFinal(paginaAtual)">
+                 <td>{{produto.codigo}}</td>
+                 <td>{{produto.nome}}</td>
+                 <td>{{produto.preco | currency:'BRL':symbol:'3.2-4'}}</td>
+                 <td><img [src]="getImagem(produto)"/></td>
+                 <td><button (click)="selecionarProduto(produto)">Selecionar</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <button (click)="anterior()"><</button>
+        <button (click)="proxima()">></button>
+    </div>
+
+</div>
+
+<div *ngIf="!mostrarProduto()">
+    <h5>Não há qualquer produto.</h5>
+</div>
+
+<div id="produto-selecionado" *ngIf="produtoSelecionado">
+    <h1>{{produtoSelecionado.nome | uppercase}}</h1>
+    <div>{{produtoSelecionado.descricao}}</div>
+    <div>
+        <img [src]="getImagem(produtoSelecionado)"/>
+    </div>
+</div>

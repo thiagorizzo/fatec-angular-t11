@@ -1,0 +1,9 @@
+table img {
+    height: 100px;
+    width: 100px;
+}
+
+#produto-selecionado img {
+    height: 300px;
+    width: 300px;
+}
