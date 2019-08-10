@@ -53,4 +53,8 @@ export class ListarProdutoComponent implements OnInit {
     isProdutoSelecionado(produto) {
         return produto == this.produtoSelecionado;
     }
+
+    onEstrelaModificada(i, valor) {
+        this.produtos[i].avaliacao = valor;
+    }
 }

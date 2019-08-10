@@ -12,12 +12,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let produto of produtos | slice:getIndiceInicial(paginaAtual):getIndiceFinal(paginaAtual)" (click)="selecionarProduto(produto)" [ngClass]='{"produto-selecionado": isProdutoSelecionado(produto), "produto": true}' >
+            <tr *ngFor="let produto of produtos | slice:getIndiceInicial(paginaAtual):getIndiceFinal(paginaAtual); let i = index" (click)="selecionarProduto(produto)" [ngClass]='{"produto-selecionado": isProdutoSelecionado(produto), "produto": true}' >
                  <td>{{produto.codigo}}</td>
                  <td>{{produto.nome | uppercase }}</td>
                  <td>{{produto.preco | currency:'BRL':symbol:'3.2-4'}}</td>
                  <td>
-                     <avaliacao valor={{produto.avaliacao}}></avaliacao>
+                     {{produto.avaliacao}}
+                     <avaliacao valor={{produto.avaliacao}} (clicada)="onEstrelaModificada(i, $event)"></avaliacao>
                  </td>
                  <td><img [src]="produtoService.getImagem(produto)"/></td>
             </tr>
