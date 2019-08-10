@@ -3,6 +3,10 @@ table img {
     width: 100px;
 }
 
+tr.produto-selecionado.produto {
+    background-color: pink;
+}
+
 #produto-selecionado img {
     height: 300px;
     width: 300px;

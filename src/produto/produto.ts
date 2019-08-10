@@ -2,5 +2,6 @@ export interface Produto {
     codigo: number;
     nome: string;
     preco: number;
-    urlImagem: string;    
+    urlImagem: string;  
+    avaliacao: number;  
 }

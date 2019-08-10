@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Produto } from './produto';
+import { ProdutoService } from './produto.service';
 
 // metadados/decorator
 @Component({
@@ -15,42 +16,12 @@ export class ListarProdutoComponent implements OnInit {
     produtoSelecionado : Produto = null;
     produtos : Produto[];
 
-    constructor() {
+    constructor(private produtoService : ProdutoService) {
+
     }
 
     ngOnInit(): void {
-        this.produtos = [
-            {
-              'codigo': 1,
-              'nome': 'World Of Warcraft',
-              'preco': 159.9,
-              'urlImagem': 'https://images-na.ssl-images-amazon.com/images/I/51pQFrAXwCL.jpg'
-            },
-            { 
-                'codigo': 2,
-                'nome': 'League Of Legends',
-                'preco': 0.0,
-                'urlImagem': 'http://i.imgur.com/UzQQvFS.jpg'
-            },
-            {
-                'codigo': 3,
-                'nome': 'Counter Strike',
-                'preco': 45.5,
-                'urlImagem': null
-            },
-            { 
-                'codigo': 2,
-                'nome': 'Mario Kart',
-                'preco': 0.0,
-                'urlImagem': 'http://i.imgur.com/UzQQvFS.jpg'
-            },
-            {
-                'codigo': 3,
-                'nome': 'Apex Legends',
-                'preco': 45.5,
-                'urlImagem': null
-            }        
-        ];
+        this.produtos = this.produtoService.getProdutos();
     }    
     
     mostrarProduto() {
@@ -59,10 +30,6 @@ export class ListarProdutoComponent implements OnInit {
 
     selecionarProduto(produto : Produto) {
         this.produtoSelecionado = produto;
-    }
-
-    getImagem(produto : Produto) {
-        return produto.urlImagem != null ? produto.urlImagem : 'https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png';
     }
 
     anterior() {
@@ -81,5 +48,9 @@ export class ListarProdutoComponent implements OnInit {
 
     getIndiceFinal() {
         return this.paginaAtual * this.quantidadePorPagina + this.quantidadePorPagina;
+    }
+
+    isProdutoSelecionado(produto) {
+        return produto == this.produtoSelecionado;
     }
 }

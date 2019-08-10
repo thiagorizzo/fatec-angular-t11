@@ -1,24 +1,25 @@
-<!-- https://bit.ly/2YGlDvB -->
 <h1>{{titulo}}</h1>
 
 <div *ngIf="mostrarProduto()">
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>código</th>
                 <th>nome</th>
                 <th>valor</th>
+                <th>avaliação</th>
                 <th>imagem</th>
-                <th>ações</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let produto of produtos | slice:getIndiceInicial(paginaAtual):getIndiceFinal(paginaAtual)">
+            <tr *ngFor="let produto of produtos | slice:getIndiceInicial(paginaAtual):getIndiceFinal(paginaAtual)" (click)="selecionarProduto(produto)" [ngClass]='{"produto-selecionado": isProdutoSelecionado(produto), "produto": true}' >
                  <td>{{produto.codigo}}</td>
                  <td>{{produto.nome | uppercase }}</td>
                  <td>{{produto.preco | currency:'BRL':symbol:'3.2-4'}}</td>
-                 <td><img [src]="getImagem(produto)"/></td>
-                 <td><button (click)="selecionarProduto(produto)">Selecionar</button></td>
+                 <td>
+                     <avaliacao valor={{produto.avaliacao}}></avaliacao>
+                 </td>
+                 <td><img [src]="produtoService.getImagem(produto)"/></td>
             </tr>
         </tbody>
     </table>
@@ -33,15 +34,7 @@
     <h5>Não há qualquer produto.</h5>
 </div>
 
-<div id="produto-selecionado" *ngIf="produtoSelecionado">
-    <h1>{{produtoSelecionado.nome | uppercase}}</h1>
-    <div>{{produtoSelecionado.descricao}}</div>
-    <div>
-        <img [src]="getImagem(produtoSelecionado)"/>
-    </div>
-    <div>
-        {{produtoSelecionado.preco | taoquei}}
-    </div>
-</div>
+<detalhe-produto [produto]="produtoSelecionado"></detalhe-produto>
 
 {{ produtoSelecionado | apresentaProduto:'resumido' }}
+

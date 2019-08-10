@@ -1,0 +1,10 @@
+<div id="produto-selecionado" *ngIf="produto">
+    <h1>{{produto.nome | uppercase}}</h1>
+    <div>{{produto.descricao}}</div>
+    <div>
+        <img [src]="produtoService.getImagem(produto)"/>
+    </div>
+    <div>
+        {{produto.preco | taoquei}}
+    </div>
+</div>

@@ -6,13 +6,17 @@ import { AppComponent } from './app.component';
 import { ListarProdutoComponent } from 'src/produto/listar-produto.component';
 import { TaoqueisPipe } from './pipes/taoqueis.pipe';
 import { ApresentaProdutoPipe } from './pipes/apresenta-produto.pipe';
+import { AvaliacaoComponent } from 'src/avaliacao/avaliacao.component';
+import { DetalheProdutoComponent } from 'src/produto/detalhe-produto.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListarProdutoComponent,
     TaoqueisPipe,
-    ApresentaProdutoPipe
+    ApresentaProdutoPipe,
+    AvaliacaoComponent,
+    DetalheProdutoComponent
   ],
   imports: [
     BrowserModule,
