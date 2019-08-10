@@ -15,7 +15,7 @@
         <tbody>
             <tr *ngFor="let produto of produtos | slice:getIndiceInicial(paginaAtual):getIndiceFinal(paginaAtual)">
                  <td>{{produto.codigo}}</td>
-                 <td>{{produto.nome}}</td>
+                 <td>{{produto.nome | uppercase }}</td>
                  <td>{{produto.preco | currency:'BRL':symbol:'3.2-4'}}</td>
                  <td><img [src]="getImagem(produto)"/></td>
                  <td><button (click)="selecionarProduto(produto)">Selecionar</button></td>
@@ -39,4 +39,9 @@
     <div>
         <img [src]="getImagem(produtoSelecionado)"/>
     </div>
+    <div>
+        {{produtoSelecionado.preco | taoquei}}
+    </div>
 </div>
+
+{{ produtoSelecionado | apresentaProduto:'resumido' }}

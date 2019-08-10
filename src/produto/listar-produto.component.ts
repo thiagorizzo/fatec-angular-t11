@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Produto } from './produto';
 
 // metadados/decorator
@@ -7,45 +7,52 @@ import { Produto } from './produto';
     templateUrl: "listar-produto.component.html",
     styleUrls: [ "listar-produto.component.css"]
 })
-export class ListarProdutoComponent {
+export class ListarProdutoComponent implements OnInit {
+
     titulo : string = "Lista de Produtos";
     paginaAtual : number = 0;
     quantidadePorPagina : number = 3;
     produtoSelecionado : Produto = null;
+    produtos : Produto[];
 
-    produtos : Produto[] = [
-        {
-          'codigo': 1,
-          'nome': 'World Of Warcraft',
-          'preco': 159.9,
-          'urlImagem': 'https://images-na.ssl-images-amazon.com/images/I/51pQFrAXwCL.jpg'
-        },
-        { 
-            'codigo': 2,
-            'nome': 'League Of Legends',
-            'preco': 0.0,
-            'urlImagem': 'http://i.imgur.com/UzQQvFS.jpg'
-        },
-        {
-            'codigo': 3,
-            'nome': 'Counter Strike',
-            'preco': 45.5,
-            'urlImagem': null
-        },
-        { 
-            'codigo': 2,
-            'nome': 'Mario Kart',
-            'preco': 0.0,
-            'urlImagem': 'http://i.imgur.com/UzQQvFS.jpg'
-        },
-        {
-            'codigo': 3,
-            'nome': 'Apex Legends',
-            'preco': 45.5,
-            'urlImagem': null
-        }        
-    ];
+    constructor() {
+    }
 
+    ngOnInit(): void {
+        this.produtos = [
+            {
+              'codigo': 1,
+              'nome': 'World Of Warcraft',
+              'preco': 159.9,
+              'urlImagem': 'https://images-na.ssl-images-amazon.com/images/I/51pQFrAXwCL.jpg'
+            },
+            { 
+                'codigo': 2,
+                'nome': 'League Of Legends',
+                'preco': 0.0,
+                'urlImagem': 'http://i.imgur.com/UzQQvFS.jpg'
+            },
+            {
+                'codigo': 3,
+                'nome': 'Counter Strike',
+                'preco': 45.5,
+                'urlImagem': null
+            },
+            { 
+                'codigo': 2,
+                'nome': 'Mario Kart',
+                'preco': 0.0,
+                'urlImagem': 'http://i.imgur.com/UzQQvFS.jpg'
+            },
+            {
+                'codigo': 3,
+                'nome': 'Apex Legends',
+                'preco': 45.5,
+                'urlImagem': null
+            }        
+        ];
+    }    
+    
     mostrarProduto() {
         return this.produtos && this.produtos.length > 0;
     }
