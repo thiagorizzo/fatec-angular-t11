@@ -9,7 +9,8 @@ import { Observable } from 'rxjs/internal/Observable';
     }
 )
 export class ProdutoService {
-    private _urlProduto = 'http://localhost:8888/Produtos';
+    private _urlProdutos = 'http://localhost:8888/Produtos';
+    private _urlProduto = 'http://localhost:8888/Produto';
 
     constructor(private _http : HttpClient) {
 
@@ -20,6 +21,14 @@ export class ProdutoService {
     } 
     
     getProdutos() : Observable<IProduto[]> {
-       return this._http.get<IProduto[]>(this._urlProduto);
+       return this._http.get<IProduto[]>(this._urlProdutos);
+    }
+
+    getProdutoId(id : number) : Observable<IProduto> {
+        return this._http.get<IProduto>(`${this._urlProduto}/${id}`);
+    }
+
+    createProduto(produto : IProduto) : Observable<IProduto> {
+        return this._http.post<IProduto>(this._urlProduto, produto);
     }
 }

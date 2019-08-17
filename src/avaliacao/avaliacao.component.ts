@@ -13,6 +13,9 @@ export class AvaliacaoComponent implements OnInit {
   }
 
   @Input()
+  editavel : boolean = false;
+
+  @Input()
   valor : number;
 
   @Output()
@@ -32,6 +35,10 @@ export class AvaliacaoComponent implements OnInit {
   }
 
   selecionou(indice : number) {
+    console.log(this.editavel);
+    if (!this.editavel)
+      return;
+
     this.valor = indice + 1;
     this.clicada.emit(this.valor);
   }

@@ -50,7 +50,7 @@ express.get('/Produtos', function(request, response) {
 
 // Create
 express.post('/Produtos', function(request, response) {
-	produtos.push(request.body.produto);
+	produtos.push(request.body);
 });
 
 express.listen(8888);

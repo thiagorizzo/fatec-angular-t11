@@ -1,23 +1,56 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IProduto } from './produto';
 import { ProdutoService } from './produto.service';
+import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'detalhe-produto',
     templateUrl: './detalhe-produto.component.html',
     styleUrls: ['./detalhe-produto.component.css']
 })
-export class DetalheProdutoComponent {
+export class DetalheProdutoComponent implements OnInit{
+    ngOnInit(): void {
+        this.produto = {
+            codigo: 0,
+            descricao: '',
+            avaliacao: 0,
+            preco: 0,
+            nome: '',
+            urlImagem: ''
+        };
+    }
 
-    constructor(private _produtoService : ProdutoService) {
+    constructor(private _produtoService : ProdutoService,
+                private _activatedRoute : ActivatedRoute) {
         
+        var produtoId = _activatedRoute.snapshot.paramMap.get('id');
+        if (produtoId != null)
+            _produtoService.getProdutoId(parseInt(produtoId))
+                        .subscribe(
+                                dado => this.produto = dado
+                        );
     }
 
     @Input()
-    produto : IProduto = { codigo: 1, nome: 'Fifa 2019', preco: 250.00, urlImagem: 'https://http2.mlstatic.com/fifa-19-fifa-2019-portugus-ps4-1-lancamento-D_NQ_NP_727394-MLB27874088213_072018-F.jpg', descricao: 'FIFA 19 proporciona uma experiência de calibre de campeão, tanto dentro como fora de campo.', avaliacao: 5 };
+    isEdit : boolean = false;
 
-    getImagem(produto) {
-        return this._produtoService.getImagem(produto);
+    @Input()
+    produto : IProduto;
+
+    public formulario;
+
+    getImagem() {
+        return this._produtoService.getImagem(this.produto);
+    }
+
+    cadastrar() {
+        this._produtoService.createProduto(this.produto)
+                            .subscribe();
+    }
+
+    onEstrelaModificada(i, valor) {
+        this.produto.avaliacao = valor;
     }
 }
 

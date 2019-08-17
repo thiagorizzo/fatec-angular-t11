@@ -6,8 +6,3 @@ table img {
 tr.produto-selecionado.produto {
     background-color: pink;
 }
-
-#produto-selecionado img {
-    height: 300px;
-    width: 300px;
-}

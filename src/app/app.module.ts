@@ -10,6 +10,9 @@ import { ApresentaProdutoPipe } from './pipes/apresenta-produto.pipe';
 import { AvaliacaoComponent } from 'src/avaliacao/avaliacao.component';
 import { DetalheProdutoComponent } from 'src/produto/detalhe-produto.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { ProdutoEditDeactivateGuardService } from 'src/router-guards/ProdutoEditDeactivateGuardService';
+import { HighlightDirective } from 'src/directives/HighlightDirective.directive';
 
 @NgModule({
   declarations: [
@@ -18,13 +21,19 @@ import { HttpClientModule } from '@angular/common/http';
     TaoqueisPipe,
     ApresentaProdutoPipe,
     AvaliacaoComponent,
-    DetalheProdutoComponent
+    DetalheProdutoComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot([
+      { path: 'produto', component: DetalheProdutoComponent },
+      { path: 'produto/:id', canDeactivate: [ ProdutoEditDeactivateGuardService ] , component: DetalheProdutoComponent },
+      { path: 'produtos', component: ListarProdutoComponent },
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

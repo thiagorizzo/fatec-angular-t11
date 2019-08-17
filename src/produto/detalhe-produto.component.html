@@ -1,13 +1,18 @@
 <div class="container" id="produto-selecionado" [hidden]="!produto">
     <form class="p-4" name="formulario" #formulario="ngForm">
         <div class="form-group">
+            <label>Código</label>
+            <input class="form-control" type="number" name="codigo" [(ngModel)]="produto.codigo" required #codigo="ngModel"/>
+        </div>
+
+        <div class="form-group">
             <label>Nome</label>
             <input class="form-control" type="text" name="nome" [(ngModel)]="produto.nome" minlength="3" required #nome="ngModel"/>
         </div>
-        <div class="alert alert-danger" *ngIf="nome.errors && nome.errors.required">
+        <div class="alert alert-danger" *ngIf="nome.touched && nome.errors && nome.errors.required">
             Campo nome é obrigatório.
         </div>
-        <div class="alert alert-danger" *ngIf="nome.errors && nome.errors.minlength">
+        <div class="alert alert-danger" *ngIf="nome.touched && nome.errors && nome.errors.minlength">
             Campo deve possuir pelo menos 3 caracteres.
         </div>
     
@@ -20,15 +25,15 @@
             <label>Valor</label>
             <input class="form-control" type="number" name="preco" [(ngModel)]="produto.preco" #preco="ngModel" required/>
         </div>
-        <div class="alert alert-danger" *ngIf="preco.errors">
+        <div class="alert alert-danger" *ngIf="preco.touched && preco.errors">
             {{ preco.errors | json }}
         </div>
     
         <div class="form-group">
             <label>Avaliação</label>
-            <avaliacao [valor]="produto.avaliacao" required></avaliacao>
+            <avaliacao editavel="true" [valor]="produto.avaliacao" required (clicada)="onEstrelaModificada(i, $event)"></avaliacao>
         </div>
 
-        <button [disabled]="formulario.invalid" class="btn btn-success">Cadastrar</button>
+        <button [disabled]="formulario.invalid" class="btn btn-success" (click)="cadastrar()">Cadastrar</button>
     </form>
 </div>

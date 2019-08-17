@@ -3,6 +3,6 @@
     width: 300px;
 }
 
-.form-control.ng-invalid {
+.form-control.ng-invalid.ng-touched {
     background-color: pink;
 }

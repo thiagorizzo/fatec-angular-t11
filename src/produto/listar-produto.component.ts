@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IProduto } from './produto';
 import { ProdutoService } from './produto.service';
 import { TouchSequence } from 'selenium-webdriver';
+import { Router } from '@angular/router';
 
 // metadados/decorator
 @Component({
@@ -18,8 +19,8 @@ export class ListarProdutoComponent implements OnInit {
     private produtos : IProduto[];
     private erroHttp;
 
-    constructor(private _produtoService : ProdutoService) {
-
+    constructor(private _produtoService : ProdutoService,
+                private _router : Router) {
     }
 
     ngOnInit(): void {
@@ -66,5 +67,13 @@ export class ListarProdutoComponent implements OnInit {
 
     getImagem(produto) {
         return this._produtoService.getImagem(produto);
+    }
+
+    cadastrar() {
+        this._router.navigate(['/produto']);
+    }
+
+    editar() {
+        this._router.navigate(['/produto', this.produtoSelecionado.codigo]);
     }
 }

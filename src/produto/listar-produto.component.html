@@ -1,4 +1,8 @@
 <h1>{{titulo}}</h1>
+<div>
+    <button (click)="cadastrar()">Cadastrar</button>
+    <button (click)="editar()">Editar</button>
+</div>
 
 <div class="alert alert-danger" *ngIf="erroHttp">
     {{erroHttp.message}}
@@ -13,18 +17,20 @@
                 <th>valor</th>
                 <th>avaliação</th>
                 <th>imagem</th>
+                <th>ação</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let produto of produtos | slice:getIndiceInicial(paginaAtual):getIndiceFinal(paginaAtual); let i = index" (click)="selecionarProduto(produto)" [ngClass]='{"produto-selecionado": isProdutoSelecionado(produto), "produto": true}' >
                  <td>{{produto.codigo}}</td>
-                 <td>{{produto.nome | uppercase }}</td>
+                 <td highlight>{{produto.nome | uppercase }}</td>
                  <td>{{produto.preco | currency:'BRL':symbol:'3.2-4'}}</td>
-                 <td>
+                 <td highlight>
                      {{produto.avaliacao}}
                      <avaliacao valor={{produto.avaliacao}} (clicada)="onEstrelaModificada(i, $event)"></avaliacao>
                  </td>
                  <td><img [src]="getImagem(produto)"/></td>
+                 <td><button [routerLink]="['/produto', produto.codigo]" >Editar</button></td>
             </tr>
         </tbody>
     </table>
@@ -39,7 +45,4 @@
     <h5>Não há qualquer produto.</h5>
 </div>
 
-<detalhe-produto [produto]="produtoSelecionado"></detalhe-produto>
-
-<!--{{ produtoSelecionado | apresentaProduto:'resumido' }}-->
 
