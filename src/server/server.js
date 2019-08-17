@@ -28,6 +28,7 @@ express.use(bodyParser.urlencoded({
     extended: true
 }));
 
+// Get by id
 express.get('/Produto/:codigo', function(request, response) {
     var codigo = request.params["codigo"];
     var promise = new Promise(
@@ -42,10 +43,12 @@ express.get('/Produto/:codigo', function(request, response) {
     });
 });
 
+// Get all
 express.get('/Produtos', function(request, response) {
 	response.json(produtos);
 });
 
+// Create
 express.post('/Produtos', function(request, response) {
 	produtos.push(request.body.produto);
 });

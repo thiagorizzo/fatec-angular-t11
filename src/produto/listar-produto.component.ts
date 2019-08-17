@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Produto } from './produto';
+import { IProduto } from './produto';
 import { ProdutoService } from './produto.service';
+import { TouchSequence } from 'selenium-webdriver';
 
 // metadados/decorator
 @Component({
@@ -10,25 +11,30 @@ import { ProdutoService } from './produto.service';
 })
 export class ListarProdutoComponent implements OnInit {
 
-    titulo : string = "Lista de Produtos";
-    paginaAtual : number = 0;
-    quantidadePorPagina : number = 3;
-    produtoSelecionado : Produto = null;
-    produtos : Produto[];
+    private titulo : string = "Lista de Produtos";
+    private paginaAtual : number = 0;
+    private quantidadePorPagina : number = 3;
+    private produtoSelecionado : IProduto = null;
+    private produtos : IProduto[];
+    private erroHttp;
 
-    constructor(private produtoService : ProdutoService) {
+    constructor(private _produtoService : ProdutoService) {
 
     }
 
     ngOnInit(): void {
-        this.produtos = this.produtoService.getProdutos();
+        this._produtoService.getProdutos()
+                            .subscribe(
+                                dado => this.produtos = dado,
+                                erro => this.erroHttp = erro
+                            );
     }    
     
     mostrarProduto() {
         return this.produtos && this.produtos.length > 0;
     }
 
-    selecionarProduto(produto : Produto) {
+    selecionarProduto(produto : IProduto) {
         this.produtoSelecionado = produto;
     }
 
@@ -56,5 +62,9 @@ export class ListarProdutoComponent implements OnInit {
 
     onEstrelaModificada(i, valor) {
         this.produtos[i].avaliacao = valor;
+    }
+
+    getImagem(produto) {
+        return this._produtoService.getImagem(produto);
     }
 }

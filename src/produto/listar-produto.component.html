@@ -1,5 +1,9 @@
 <h1>{{titulo}}</h1>
 
+<div class="alert alert-danger" *ngIf="erroHttp">
+    {{erroHttp.message}}
+</div>
+
 <div *ngIf="mostrarProduto()">
     <table class="table table-striped">
         <thead>
@@ -20,7 +24,7 @@
                      {{produto.avaliacao}}
                      <avaliacao valor={{produto.avaliacao}} (clicada)="onEstrelaModificada(i, $event)"></avaliacao>
                  </td>
-                 <td><img [src]="produtoService.getImagem(produto)"/></td>
+                 <td><img [src]="getImagem(produto)"/></td>
             </tr>
         </tbody>
     </table>
@@ -31,11 +35,11 @@
 
 </div>
 
-<div *ngIf="!mostrarProduto()">
+<div *ngIf="!mostrarProduto() && erroHttp == null">
     <h5>Não há qualquer produto.</h5>
 </div>
 
 <detalhe-produto [produto]="produtoSelecionado"></detalhe-produto>
 
-{{ produtoSelecionado | apresentaProduto:'resumido' }}
+<!--{{ produtoSelecionado | apresentaProduto:'resumido' }}-->
 

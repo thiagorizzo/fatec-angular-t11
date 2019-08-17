@@ -1,10 +1,23 @@
 <div id="produto-selecionado" *ngIf="produto">
-    <h1>{{produto.nome | uppercase}}</h1>
-    <div>{{produto.descricao}}</div>
-    <div>
-        <img [src]="produtoService.getImagem(produto)"/>
-    </div>
-    <div>
-        {{produto.preco | taoquei}}
-    </div>
+    <form>
+        <div class="form-group">
+            <label>Nome</label>
+            <input class="form-control" type="text" name="nome" [(ngModel)]="produto.nome"/>
+        </div>
+
+        <div class="form-group">
+            <label>Descriçao</label>
+            <input class="form-control" type="text" name="descricao" [(ngModel)]="produto.descricao"/>
+        </div>
+    
+        <div class="form-group">
+            <label>Valor</label>
+            <input class="form-control" type="number" name="preco" [(ngModel)]="produto.preco"/>
+        </div>
+
+        <div class="form-group">
+            <label>Avaliação</label>
+            <avaliacao [valor]="produto.avaliacao"></avaliacao>
+        </div>
+    </form>
 </div>
