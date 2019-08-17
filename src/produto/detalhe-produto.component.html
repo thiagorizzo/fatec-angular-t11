@@ -1,23 +1,34 @@
-<div id="produto-selecionado" *ngIf="produto">
-    <form>
+<div class="container" id="produto-selecionado" [hidden]="!produto">
+    <form class="p-4" name="formulario" #formulario="ngForm">
         <div class="form-group">
             <label>Nome</label>
-            <input class="form-control" type="text" name="nome" [(ngModel)]="produto.nome"/>
+            <input class="form-control" type="text" name="nome" [(ngModel)]="produto.nome" minlength="3" required #nome="ngModel"/>
         </div>
-
+        <div class="alert alert-danger" *ngIf="nome.errors && nome.errors.required">
+            Campo nome é obrigatório.
+        </div>
+        <div class="alert alert-danger" *ngIf="nome.errors && nome.errors.minlength">
+            Campo deve possuir pelo menos 3 caracteres.
+        </div>
+    
         <div class="form-group">
             <label>Descriçao</label>
-            <input class="form-control" type="text" name="descricao" [(ngModel)]="produto.descricao"/>
+            <textarea class="form-control" type="text" name="descricao" [(ngModel)]="produto.descricao" required #decricao="ngModel"></textarea>
         </div>
     
         <div class="form-group">
             <label>Valor</label>
-            <input class="form-control" type="number" name="preco" [(ngModel)]="produto.preco"/>
+            <input class="form-control" type="number" name="preco" [(ngModel)]="produto.preco" #preco="ngModel" required/>
         </div>
-
+        <div class="alert alert-danger" *ngIf="preco.errors">
+            {{ preco.errors | json }}
+        </div>
+    
         <div class="form-group">
             <label>Avaliação</label>
-            <avaliacao [valor]="produto.avaliacao"></avaliacao>
+            <avaliacao [valor]="produto.avaliacao" required></avaliacao>
         </div>
+
+        <button [disabled]="formulario.invalid" class="btn btn-success">Cadastrar</button>
     </form>
 </div>
